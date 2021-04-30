@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Button, View, Text, TextInput } from 'react-native';
+import { Button, TextInput, SafeAreaView } from 'react-native';
+import Titulo from './Titulo';
 
 
 class Busca extends Component {
@@ -13,14 +14,19 @@ class Busca extends Component {
         fetch(`https://api.github.com/users/${username}`)
             .then(response => response.json())
             .then(data => {
-                console.warn(`Data ID: ${data.id}, User: ${data.login}`);
+                console.log(`Data ID: ${data.id}, User: ${data.login}`);
                 // this.setState({ data, loading: false });
             })
             .catch(err => console.log(err));
     };
+    testar = ({ navigation }) => {
+        //      navigation.navigate('Result');
+        console.warn('Teste')
+    };
     render() {
         return (
-            <View>
+            <SafeAreaView>
+                <Titulo />
                 <TextInput
                     style={styles.inputBoxStyle}
                     placeholder="Nome do Usuário"
@@ -30,7 +36,8 @@ class Busca extends Component {
                     onChangeText={user => this.setState({ user })}
                 />
                 <Button title="Buscar" onPress={this.pesquisar} />
-            </View>
+                <Button title="Teste" onPress={this.testar} />
+            </SafeAreaView>
         );
     }
 }
