@@ -13,7 +13,7 @@ const optionsHome = {
     },
     headerTintColor: '#FFFFFF'
 }
-const optionsResults = {
+const optionsResult = {
     title: 'Buscar',
     headerStyle: {
         backgroundColor: '#000000'
@@ -27,8 +27,8 @@ export default function App() {
             <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="Home" component={Busca}
                     options={optionsHome} />
-                <Stack.Screen name="Results" component={Detalhes}
-                    options={optionsResults} />
+                <Stack.Screen name="Result" component={Detalhes}
+                    options={optionsResult} />
             </Stack.Navigator>
         </NavigationContainer>
     );

@@ -1,46 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Button, TextInput, SafeAreaView } from 'react-native';
 import Titulo from './Titulo';
 
+const state = { user: '', data: '', loading: false };
+const pesquisar = () => {
+    const username = this.state.user;
+    fetch(`https://api.github.com/users/${username}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(`Data ID: ${data.id}, User: ${data.login}`);
+            // this.setState({ data, loading: false });
+        })
+        .catch(err => console.log(err));
+};
+const testar = () => {
+    navigation.navigate('Result');
+};
+export default function Busca({ navigation }) {
 
-class Busca extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { user: '', data: '', loading: false };
-    }
-
-    pesquisar = () => {
-        const username = this.state.user;
-        fetch(`https://api.github.com/users/${username}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(`Data ID: ${data.id}, User: ${data.login}`);
-                // this.setState({ data, loading: false });
-            })
-            .catch(err => console.log(err));
-    };
-    testar = ({ navigation }) => {
-        //      navigation.navigate('Result');
-        console.warn('Teste')
-    };
-    render() {
-        return (
-            <SafeAreaView>
-                <Titulo />
-                <TextInput
-                    style={styles.inputBoxStyle}
-                    placeholder="Nome do Usuário"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    value={this.props.user}
-                    onChangeText={user => this.setState({ user })}
-                />
-                <Button title="Buscar" onPress={this.pesquisar} />
-                <Button title="Teste" onPress={this.testar} />
-            </SafeAreaView>
-        );
-    }
-}
+    return (
+        <SafeAreaView>
+            <Titulo />
+            <TextInput
+                style={styles.inputBoxStyle}
+                placeholder="Nome do Usuário"
+                autoCapitalize="none"
+                autoCorrect={false}
+                value={state.user}
+                onChangeText={user => Object.assign(state, { user })}
+            />
+            <Button title="Buscar" onPress={pesquisar} />
+            <Button title="Teste" onPress={() => navigation.navigate('Result')} />
+        </SafeAreaView>
+    );
+};
 
 const styles = {
     inputBoxStyle: {
@@ -65,5 +58,3 @@ const styles = {
         alignSelf: 'stretch',
     },
 };
-
-export default Busca;
