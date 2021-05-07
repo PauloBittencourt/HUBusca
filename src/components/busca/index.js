@@ -1,15 +1,16 @@
 import React from 'react';
-import { Button, TextInput, SafeAreaView } from 'react-native';
-import Titulo from './Titulo';
+import { Button, TextInput, SafeAreaView, } from 'react-native';
+import Resultado from '../resultado';
 
 const state = { user: '', data: '', loading: false };
-const pesquisar = () => {
+const pesquisar = (props) => {
     const username = this.state.user;
     fetch(`https://api.github.com/users/${username}`)
         .then(response => response.json())
         .then(data => {
             console.log(`Data ID: ${data.id}, User: ${data.login}`);
-            // this.setState({ data, loading: false });
+            this.setState({ data, loading: false });
+            props.state = state;
         })
         .catch(err => console.log(err));
 };
@@ -20,7 +21,6 @@ export default function Busca({ navigation }) {
 
     return (
         <SafeAreaView>
-            <Titulo />
             <TextInput
                 style={styles.inputBoxStyle}
                 placeholder="Nome do Usuário"
@@ -31,6 +31,7 @@ export default function Busca({ navigation }) {
             />
             <Button title="Buscar" onPress={pesquisar} />
             <Button title="Teste" onPress={() => navigation.navigate('Result')} />
+            <Resultado>this.getState()</Resultado>
         </SafeAreaView>
     );
 };
